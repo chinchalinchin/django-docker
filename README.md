@@ -84,7 +84,15 @@ Description: Used to load in environment variables from a particular <i>.env</i>
 
 Description: Useful functions. Source this script, `source ./scripts/util/sys-util.sh`, to load these functions into your current shell session. <i>clean_docker</i> is a particularly useful function to cleaning up dangling <b>Docker</b> images, cleaning the cache and pruning orphaned volumes and networks. 
 
-## Docker Application Structure
+## Application Structure
+
+### Django
+
+The <i>core</i> app contains all the Django configuration. The <i>defaults</i> app creates suitable defaults for various <b>Django</b> features using data migrations; It will create default groups, create a super user and assign that user to the administrator group. 
+
+The groups are configured by the <b>GROUPS</b> environment variable. This variable is a comma-separated list of all the default groups you want to create. It <i>must</i> include atleast `administrator` or else the migration which creates the superuser will err out; it expects the `administrator` group to exist before it assigns the superuser to that group.
+
+### Docker
 
 The <i>/app/</i> and <i>/scripts/</i> folder are copied in the <i>/home/</i> directory of the <b>Docker</b> file system. A user with the name <i>chinchalinchin</i> is assigned to the group <i>admin</i> during the <b>Docker</b> build. This user is granted ownership of the application files. The permissions on the application files is set to <b>read</b> and <b>write</b> for everyone and <b>execute</b> for this user only. 
 
