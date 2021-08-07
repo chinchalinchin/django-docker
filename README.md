@@ -80,8 +80,21 @@ Description: Used to load in environment variables from a particular <i>.env</i>
 
 Description: Useful functions. Source this script, `source ./scripts/util/sys-util.sh`, to load these functions into your current shell session. <i>clean_docker</i> is a particularly useful function to cleaning up dangling <b>Docker</b> images, cleaning the cache and pruning orphaned volumes and networks. 
 
+## Docker Application Structure
+
+The <i>/app/</i> and <i>/scripts/</i> folder are copied in the <i>/home/</i> directory of the <b>Docker</b> file system. A user with the name <i>chinchalinchin</i> is assigned to the group <i>admin</i> during the <b>Docker</b> build. This user is granted ownership of the application files. The permissions on the application files is set to <b>read</b> and <b>write</b> for everyone and <b>execute</b> for this user only. 
+
+The <b>Dockerfile</b> exposes port 8000, but the environment variable <b>APP_PORT</b> is what determines the port on which the application server listens. This variable is used to start up the <b>gunicorn</b> server in the <i>entrypoint.sh</i> script. 
+
+The <b>Dockerfile</b> installs dependences for <b>Postgres</b> clients. These are the system dependencies required by the <b>python</b> library, <b>psycopg2</b>, which <b>django</b> uses under the hood to manage the model migrations when the model backend has been set to <b>postgres</b>.  
+
+## Container Orchestration
+
+The <i>docker-compose</i> in the project root directory will bring up an application container and orchestrate it with a <b>postgres</b> container. Both containers use the <i>runtime.env</i> environment file to configure their environments. The <b>POSTGRES_*</b> variables injected at runtime are used by the <b>postgres</b> container to configure the root user, the default database name and the port the database container listens on internally. 
+
 ## Documentation
 - [django](https://docs.djangoproject.com/en/3.2/)
 - [django-rest-framework](https://www.django-rest-framework.org/)
 - [docker](https://docs.docker.com/)
 - [gunicorn](https://docs.gunicorn.org/en/stable/)
+- [postgres](https://www.postgresql.org/docs/)
