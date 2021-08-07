@@ -1,6 +1,6 @@
 # django-docker-starter kit
 
-This repository is a template for a [django](https://docs.djangoproject.com/en/3.2/) and [django-rest-framework](https://www.django-rest-framework.org/) project. It has been containerized with [Docker](https://docs.docker.com/) through the <i>Dockerfile</i> in the project root directory and orchestrated with a [Postgres](https://www.postgresql.org/docs/) instance via the <i>docker-compose.yml</i> in the project root directory. The application comes pre-configured to connect to this instance when running as a container. It can also be sure run locally, in which case, it will switch to a <b>SQLite</b> model backend.
+This repository is a template for a [django](https://docs.djangoproject.com/en/3.2/)-[django-rest-framework](https://www.django-rest-framework.org/) project. It has been containerized with [Docker](https://docs.docker.com/) through the <i>Dockerfile</i> in the project root directory and orchestrated with a [Postgres](https://www.postgresql.org/docs/) instance via the <i>docker-compose.yml</i> in the project root directory. The application comes pre-configured to connect to this instance when running as a container. It can also be sure run locally, in which case, it will switch to a <b>SQLite</b> model backend.
 
 ## Quickstart
 

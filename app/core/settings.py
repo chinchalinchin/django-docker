@@ -44,8 +44,7 @@ elif APP_ENV == 'container':
     }
     ALLOWED_HOSTS = [ '*' ]
     CORS_ALLOWED_ORIGINS=str(os.getenv('ALLOWED_ORIGINS')).strip().split(',')
-    print(CORS_ALLOWED_ORIGINS)
-
+    
 ## Other Application Environments Go Here
 ## elif APP_ENV == 'some_other_environment'
 
