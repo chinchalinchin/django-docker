@@ -13,10 +13,12 @@ if APP_ENV == 'local':
 
 SECRET_KEY = str(os.getenv('SECRET_KEY')).strip()
 APPEND_SLASH=False
-
-# SERVICE CONFIGURATION
 APP_HOST = str(os.environ.setdefault('APP_HOST', 'localhost')).strip()
 APP_PORT = str(os.environ.setdefault('APP_PORT', '8000')).strip()
+SUPERUSER_USERNAME = str(os.getenv('DJANGO_SUPERUSER_USERNAME')).strip()
+SUPERUSER_PASSWORD = str(os.getenv('DJANGO_SUPERUSER_PASSWORD')).strip()
+SUPERUSER_EMAIL = str(os.getenv('DJANGO_SUPERUSER_EMAIL')).strip()
+GROUPS = str(os.getenv('GROUPS')).strip().split(',')
 
 if APP_ENV == 'local':
     DEBUG = True
@@ -27,6 +29,8 @@ if APP_ENV == 'local':
         }
     }
     ALLOWED_HOSTS = [ '*' ]
+    CORS_ALLOW_ALL_ORIGINS = True
+
 elif APP_ENV == 'container':
     DEBUG = True
     DATABASES = {
@@ -40,17 +44,24 @@ elif APP_ENV == 'container':
         }
     }
     ALLOWED_HOSTS = [ '*' ]
+    CORS_ALLOWED_ORIGINS=str(os.getenv('ALLOWED_ORIGINS')).strip().split(',')
+
+## Other Application Environments Go Here
+## elif APP_ENV == 'some_other_environment'
 
 INSTALLED_APPS = [
+    'corsheaders'
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'defaults.apps.DefaultsConfig'
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -59,9 +70,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
-ROOT_URLCONF = 'core.urls'
-WSGI_APPLICATION = 'core.wsgi.application'
 
 TEMPLATES = [
     {
@@ -79,13 +87,6 @@ TEMPLATES = [
     },
 ]
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
 AUTH_PASSWORD_VALIDATORS = [
     { 'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator', },
     { 'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator', },
@@ -93,13 +94,9 @@ AUTH_PASSWORD_VALIDATORS = [
     { 'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator', },
 ]
 
-
-# Internationalization
+ROOT_URLCONF = 'core.urls'
+WSGI_APPLICATION = 'core.wsgi.application'
 LANGUAGE_CODE, TIME_ZONE = 'en-us', 'UTC'
 USE_I18N, USEL10N, USE_TZ = True, True, True
-
-# Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
-
-# Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

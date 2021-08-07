@@ -1,12 +1,16 @@
 # django-docker-starter kit
 
-This repository is a template for a [django]() and [django-rest-framework]() project. It has been containerized and composed with a [Postgres]() instance via the <i>Dockerfile</i> and <i>docker-compose.yml</i> in the root directory. The application comes pre-configured to connect to this instance when running as a container.
+This repository is a template for a [django](https://docs.djangoproject.com/en/3.2/) and [django-rest-framework](https://www.django-rest-framework.org/) project. It has been containerized with [Docker](https://docs.docker.com/) through the <i>Dockerfile</i> in the project root directory and orchestrated with a [Postgres](https://www.postgresql.org/docs/) instance via the <i>docker-compose.yml</i> in the project root directory. The application comes pre-configured to connect to this instance when running as a container. It can also be sure run locally, in which case, it will switch to a <b>SQLite</b> model backend.
 
 ## Quickstart
 
 ### Step 1: Configure Enviroment
 
 Copy the <i>/env/.sample.build.env</i> and <i>/env/.sample.runtime.env</i> into new <i>/env/build.env</i> and <i>/env/runtime.env</i> files respectively. Adjust the environment variables in these files to your specific situation. The <i>build.env</i> get injected into the <i>/scripts/docker/build-image.sh</i> shell script to configure the `docker build`. The <i>runtime.env</i> gets into injected into the <i>/scripts/run-server.sh</i>, <i>/scripts/docker/entrypoint.sh</i> and the <i>/scripts/docker/run-container.sh</i> shell scripts. These define the different starting points of the application.
+
+The main environment variable of interest is <b>APP_ENV</b>. This variables is parsed in the <i>/app/core/settings.py</i> and determines how <b>Django</b> will configure its application settings. If set to `local`, <b>Django</b> will use a <b>SQLite</b> database and set the <b>CORS</b> and <b>ALLOWED_HOST</b> to their most permissive settings. 
+
+If set to `container`
 
 ### Step 2: Install Dependencies
 
@@ -87,6 +91,10 @@ The <i>/app/</i> and <i>/scripts/</i> folder are copied in the <i>/home/</i> dir
 The <b>Dockerfile</b> exposes port 8000, but the environment variable <b>APP_PORT</b> is what determines the port on which the application server listens. This variable is used to start up the <b>gunicorn</b> server in the <i>entrypoint.sh</i> script. 
 
 The <b>Dockerfile</b> installs dependences for <b>Postgres</b> clients. These are the system dependencies required by the <b>python</b> library, <b>psycopg2</b>, which <b>django</b> uses under the hood to manage the model migrations when the model backend has been set to <b>postgres</b>.  
+
+## TODO
+
+1. start <i>session</i> app. set up superuser data migration.
 
 ## Container Orchestration
 
