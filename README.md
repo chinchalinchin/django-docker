@@ -14,9 +14,9 @@ If running locally, activate your virtual environment (if using one) and install
 
 `pip install -r requirements.txt`
 
-## Step 3: Launch Application Server
+### Step 3: Launch Application Server
 
-### Local
+#### Local
 
 All of the necessary steps to start a local server have been included in the <i>/scripts/run-server.sh</i>, but if you want to do it manually, initialize the environment file, migrate your models (if you have any) and collect your static files. 
 
@@ -38,7 +38,7 @@ Or deploy the server onto a WSGI application server like <b>gunicorn</b>,
 
 `gunicorn core:wsgi.appplcation --bind localhost:8000 --workers 3 --access-logfile '-'`
 
-### Container
+#### Container
 
 All of the necessary steps to start a server inside of a container have been included in the <i>/scripts/docker/build-image.sh</i> and <i>/scripts/docker/run-container.sh</i>. These steps have been separated because sometime it is desirable to build an image without running a container and visa versa. If you wish to do build and run the application manually,
 
