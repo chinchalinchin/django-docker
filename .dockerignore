@@ -1,0 +1,7 @@
+/env/
+*.env
+.gitignore
+Dockerfile
+*__pycache__
+*.pyc
+/app/db.sqlite3

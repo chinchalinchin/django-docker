@@ -1,0 +1,6 @@
+*.env
+!.sample.build.env
+!.sample.runtime.env
+*.pyc
+app/db.sqlite3
+app/static/*
