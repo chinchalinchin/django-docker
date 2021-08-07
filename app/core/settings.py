@@ -12,7 +12,6 @@ if APP_ENV == 'local':
 
 
 SECRET_KEY = str(os.getenv('SECRET_KEY')).strip()
-APPEND_SLASH=False
 APP_HOST = str(os.environ.setdefault('APP_HOST', 'localhost')).strip()
 APP_PORT = str(os.environ.setdefault('APP_PORT', '8000')).strip()
 SUPERUSER_USERNAME = str(os.getenv('DJANGO_SUPERUSER_USERNAME')).strip()
@@ -50,7 +49,7 @@ elif APP_ENV == 'container':
 ## elif APP_ENV == 'some_other_environment'
 
 INSTALLED_APPS = [
-    'corsheaders'
+    'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
