@@ -21,6 +21,7 @@ if [ "$1" == "--help" ] || [ "$1" == "--h" ] || [ "$1" == "-help" ] || [ "$1" ==
 then
     help "$SCRIPT_DES" "$SCRIPT_NAME"
 else
+    source "$UTIL_DIR/env-vars.sh" "build"
     source "$UTIL_DIR/env-vars.sh" "runtime"
 
     docker run \

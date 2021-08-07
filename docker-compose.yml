@@ -22,7 +22,7 @@ services:
       networks:
         - data_net
       env_file:
-        - ./en/runtime.env 
+        - ./env/runtime.env 
 
 networks:
     data_net:  

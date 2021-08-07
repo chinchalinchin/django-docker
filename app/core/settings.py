@@ -44,6 +44,7 @@ elif APP_ENV == 'container':
     }
     ALLOWED_HOSTS = [ '*' ]
     CORS_ALLOWED_ORIGINS=str(os.getenv('ALLOWED_ORIGINS')).strip().split(',')
+    print(CORS_ALLOWED_ORIGINS)
 
 ## Other Application Environments Go Here
 ## elif APP_ENV == 'some_other_environment'
@@ -95,7 +96,11 @@ AUTH_PASSWORD_VALIDATORS = [
 
 ROOT_URLCONF = 'core.urls'
 WSGI_APPLICATION = 'core.wsgi.application'
+
 LANGUAGE_CODE, TIME_ZONE = 'en-us', 'UTC'
 USE_I18N, USEL10N, USE_TZ = True, True, True
+
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

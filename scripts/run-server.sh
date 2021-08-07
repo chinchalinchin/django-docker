@@ -24,11 +24,11 @@ else
 
     log "Installing Python dependencies." "$SCRIPT_NAME"
     pip3 install -r requirements.txt
-    
-    log "Collecting static files." "$SCRIPT_NAME"
-    python manage.py collectstatic --noinput
 
     cd "$APP_DIR"
+
+    log "Collecting static files." "$SCRIPT_NAME"
+    python3 manage.py collectstatic --noinput
     
     if [ -f "$APP_DIR/db.sqlite3" ]
     then
