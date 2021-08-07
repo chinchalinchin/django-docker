@@ -8,9 +8,9 @@ This repository is a template for a [django](https://docs.djangoproject.com/en/3
 
 Copy the <i>/env/.sample.build.env</i> and <i>/env/.sample.runtime.env</i> into new <i>/env/build.env</i> and <i>/env/runtime.env</i> files respectively. Adjust the environment variables in these files to your specific situation. The <i>build.env</i> get injected into the <i>/scripts/docker/build-image.sh</i> shell script to configure the `docker build`. The <i>runtime.env</i> gets into injected into the <i>/scripts/run-server.sh</i>, <i>/scripts/docker/entrypoint.sh</i> and the <i>/scripts/docker/run-container.sh</i> shell scripts. These define the different starting points of the application.
 
-The main environment variable of interest is <b>APP_ENV</b>. This variables is parsed in the <i>/app/core/settings.py</i> and determines how <b>Django</b> will configure its application settings. If set to `local`, <b>Django</b> will use a <b>SQLite</b> database and set the <b>CORS</b> and <b>ALLOWED_HOST</b> to their most permissive settings. 
+The main environment variable of interest is <b>APP_ENV</b>. This variables is parsed in the <i>/app/core/settings.py</i> and determines how <b>Django</b> will configure its application settings. If set to `local`, <b>Django</b> will use a <b>SQLite</b> database and set the <b>CORS</b> and <b>ALLOWED_HOST</b> to their most permissive settings. The <b>DEBUG</b> setting will be set to <b>True</b> in `local` mode.
 
-If set to `container`
+If set to `container`, <b>Django</b> will configure a <b>Postgres</b> connection through the <b>POSTGRES_*</b> environment variables and restrict the allowed origins to the comma separated list defined by the <b>ALLOWED_ORIGINS</b> environment variable. The <b>DEBUG</b> setting be set to <b>False</b> in `container` mode.
 
 ### Step 2: Install Dependencies
 
@@ -18,11 +18,13 @@ If running locally, activate your virtual environment (if using one) and install
 
 `pip install -r requirements.txt`
 
+This set is captured in the <b>Dockerfile</b> and is not required if running the application as a container.
+
 ### Step 3: Launch Application Server
 
 #### Local
 
-All of the necessary steps to start a local server have been included in the <i>/scripts/run-server.sh</i>, but if you want to do it manually, initialize the environment file, migrate your models (if you have any) and collect your static files. 
+All of the necessary steps to start a local server have been included in the <i>/scripts/run-server.sh</i> shell script, but if you want to do it manually, initialize the environment file, migrate your models (if you have any) and collect your static files. 
 
 First, source the <i>/env/runtime.env</i> environment file to load these variables into your shell session,
 
