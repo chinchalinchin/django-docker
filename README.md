@@ -46,7 +46,7 @@ Or deploy the server onto a WSGI application server like <b>gunicorn</b>,
 
 #### Container
 
-All of the necessary steps to start a server inside of a container have been included in the <i>/scripts/docker/build-image.sh</i> and <i>/scripts/docker/run-container.sh</i>. These steps have been separated because sometime it is desirable to build an image without running a container and visa versa. If you wish to do build and run the application manually,
+All of the necessary steps to start a server inside of a container have been included in the <i>/scripts/docker/build-image.sh</i> and <i>/scripts/docker/run-container.sh</i>. These steps have been separated because sometime it is desirable to build an image without running a container and visa versa. If you wish to build and run the application manually,
 
 `docker build -t docker-django-starter:latest .`
 
@@ -84,7 +84,7 @@ Description: Used to load in environment variables from a particular <i>.env</i>
 
 6. <b>/scripts/util/sys-util.sh</b>
 
-Description: Useful functions. Source this script, `source ./scripts/util/sys-util.sh`, to load these functions into your current shell session. <i>clean_docker</i> is a particularly useful function to cleaning up dangling <b>Docker</b> images, cleaning the cache and pruning orphaned volumes and networks. 
+Description: Useful functions. Source this script, `source ./scripts/util/sys-util.sh`, to load these functions into your current shell session. <i>clean_docker</i> is a particularly useful function for cleaning up dangling <b>Docker</b> images, cleaning the cache and pruning orphaned volumes and networks. 
 
 ## Application Structure
 
@@ -96,7 +96,7 @@ The groups are configured by the <b>GROUPS</b> environment variable. This variab
 
 ### Docker
 
-The <i>/app/</i> and <i>/scripts/</i> folder are copied in the <i>/home/</i> directory of the <b>Docker</b> file system. A user with the name <i>chinchalinchin</i> is assigned to the group <i>admin</i> during the <b>Docker</b> build. This user is granted ownership of the application files. The permissions on the application files is set to <b>read</b> and <b>write</b> for everyone and <b>execute</b> for this user only. 
+The <i>/app/</i> and <i>/scripts/</i> folder are copied in the <i>/home/</i> directory of the <b>Docker</b> file system. A user with the name <i>chinchalinchin</i> is assigned to the group <i>admin</i> during the <b>Docker</b> build. This user is granted ownership of the application files. The permissions on the application files are set to <b>read</b> and <b>write</b> for everyone and <b>execute</b> for this user only. 
 
 The <b>Dockerfile</b> exposes port 8000, but the environment variable <b>APP_PORT</b> is what determines the port on which the application server listens. This variable is used to start up the <b>gunicorn</b> server in the <i>entrypoint.sh</i> script. 
 
