@@ -5,7 +5,7 @@ python-dotenv==0.17.1
 psycopg2==2.8.2
 
 # Server dependencies
-django==3.2.5
+django==3.2.24
 gunicorn==20.1.0
 whitenoise==5.1.0
 django-cors-headers==3.7.0
