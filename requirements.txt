@@ -13,3 +13,4 @@ django-referrer-policy==1.0.0
 
 # API dependencies
 djangorestframework==3.12.4
+setuptools>=70.0.0 # not directly required, pinned by Snyk to avoid a vulnerability
